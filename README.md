@@ -9,6 +9,9 @@
 
  - Используя настройки VPC из предыдущих домашних заданий, добавить дополнительно подсеть private в разных зонах, чтобы обеспечить отказоустойчивость. 
  - Разместить ноды кластера MySQL в разных подсетях.
+
+ >Ноды разместил только в двух зонах: ru-central1-a и ru-central1-b, поскольку в зоне ru-central1-d нет требуемого окружения
+
  - Необходимо предусмотреть репликацию с произвольным временем технического обслуживания.
  - Использовать окружение Prestable, платформу Intel Broadwell с производительностью 50% CPU и размером диска 20 Гб.
  - Задать время начала резервного копирования — 23:59.
@@ -24,6 +27,13 @@
  >[variables.tf](./terraform/variables.tf)
 
  >[outputs.tf](./terraform/outputs.tf)
+
+ ![mysql_apply.png](./task1/mysql_apply.png)
+ ![mysql_deploy1.png](./task1/mysql_deploy1.png)
+ ![mysql_deploy2.png](./task1/mysql_deploy2.png)
+ ![mysql_deploy3.png](./task1/mysql_deploy3.png)
+ ![hosts.png](./task1/hosts.png)
+ ![db_user.png](./task1/db_user.png)
 
 2. Настроить с помощью Terraform кластер Kubernetes.
 

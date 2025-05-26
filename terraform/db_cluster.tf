@@ -18,8 +18,22 @@ resource "yandex_mdb_mysql_cluster" "ntl-mysql-cluster" {
     assign_public_ip = var.vm_nat
   }
 
+  host {
+    zone      = "ru-central1-b"
+    subnet_id = yandex_vpc_subnet.subnet-private-40.id
+    assign_public_ip = var.vm_nat
+  }
+
+  # host {
+  #   zone      = "ru-central1-d"
+  #   subnet_id = yandex_vpc_subnet.subnet-private-50.id
+  #   assign_public_ip = var.vm_nat
+  # }
+
   maintenance_window {
-    type = "ANYTIME"
+    type = "WEEKLY"
+    day  = "MON"
+    hour = 03
   }
 
   backup_window_start {
