@@ -14,18 +14,6 @@ variable "default_zone" {
   description = "https://cloud.yandex.ru/docs/overview/concepts/geo-scope"
 }
 
-variable "public_cidr" {
-  type        = list(string)
-  default     = ["192.168.10.0/24"]
-  description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
-}
-
-variable "private_cidr" {
-  type        = list(string)
-  default     = ["192.168.20.0/24"]
-  description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
-}
-
 variable "vpc_name" {
   type        = string
   default     = "netology-net"
@@ -49,15 +37,15 @@ variable "resources_vm" {
   default = {
     cores         = 2
     memory        = 2
-    core_fraction = 5
-    disk_size     = 20
+    core_fraction = 50
+    disk_size     = 32
     disk_type     = "network-ssd"
   }
 }
 
 variable "vm_platform" {
   type        = string
-  default     = "standard-v1"
+  default     = "standard-v3"
   description = "platform of compute instanse"
 }
 

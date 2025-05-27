@@ -34,6 +34,39 @@ variable "security_group_ingress" {
       v4_cidr_blocks = ["0.0.0.0/0"]
       port           = 3306
     },
+    {
+      protocol    = "TCP"
+      description = "Правило разрешает проверки доступности с диапазона адресов балансировщика нагрузки. Нужно для работы отказоустойчивого кластера Managed Service for Kubernetes и сервисов балансировщика."
+      v4_cidr_blocks = ["0.0.0.0/0"]
+      from_port   = 0
+      to_port     = 65535
+    },
+    {
+      protocol    = "ANY"
+      description = "Правило разрешает взаимодействие мастер-узел и узел-узел внутри группы безопасности."
+      v4_cidr_blocks = ["0.0.0.0/0"]
+      from_port   = 0
+      to_port     = 65535
+    },
+    {
+      protocol       = "ANY"
+      description    = "Правило разрешает взаимодействие под-под и сервис-сервис. Укажите подсети вашего кластера Managed Service for Kubernetes и сервисов."
+      v4_cidr_blocks = ["192.168.10.0/24", "192.168.11.0/24", "192.168.12.0/24"]
+      from_port      = 0
+      to_port        = 65535
+    },
+    {
+      protocol       = "ICMP"
+      description    = "Правило разрешает отладочные ICMP-пакеты из внутренних подсетей."
+      v4_cidr_blocks = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+    },
+    {
+      protocol       = "TCP"
+      description    = "Правило разрешает входящий трафик из интернета на диапазон портов NodePort. Добавьте или измените порты на нужные вам."
+      v4_cidr_blocks = ["0.0.0.0/0"]
+      from_port      = 30000
+      to_port        = 32767
+    }
   ]
 }
 
@@ -50,7 +83,7 @@ variable "security_group_egress" {
       to_port        = optional(number)
   }))
   default = [
-    { 
+    {
       protocol       = "TCP"
       description    = "разрешить весь исходящий трафик"
       v4_cidr_blocks = ["0.0.0.0/0"]

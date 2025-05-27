@@ -1,11 +1,8 @@
 resource "yandex_kubernetes_node_group" "k8s-group-node" {
-  cluster_id = yandex_kubernetes_cluster.netology-k8s.id
-  name       = "k8s-group-node"
+  cluster_id  = yandex_kubernetes_cluster.netology-k8s.id
+  name        = "k8s-group-node"
   description = "k8s-group-node"
-  version     = local.k8s_version
-  labels = {
-    "key" = "value"
-  }
+  version     = "1.29"
   instance_template {
     platform_id = var.vm_platform
     name        = "worker-a-{instance.short_id}"
@@ -15,8 +12,9 @@ resource "yandex_kubernetes_node_group" "k8s-group-node" {
       security_group_ids = [yandex_vpc_security_group.dev-sec-group.id]
     }
     resources {
-      memory = var.resources_vm["memory"]
-      cores  = var.resources_vm["cores"]
+      memory        = var.resources_vm["memory"]
+      cores         = var.resources_vm["cores"]
+      core_fraction = var.resources_vm["core_fraction"]
     }
     boot_disk {
       type = "network-hdd"
@@ -30,7 +28,7 @@ resource "yandex_kubernetes_node_group" "k8s-group-node" {
     auto_scale {
       min     = 3
       max     = 6
-      initial = 1
+      initial = 3
     }
   }
   allocation_policy {

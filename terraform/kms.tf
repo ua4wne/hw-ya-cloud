@@ -1,6 +1,6 @@
-resource "yandex_kms_symmetric_key" "secret-key" {
-  name              = "s-key"
-  description       = "ключ для шифрования"
-  default_algorithm = "AES_256"
-  rotation_period   = "8760h" // equal to 1 year
+resource "yandex_kms_symmetric_key" "kms-key" {
+  # Ключ Yandex Key Management Service для шифрования важной информации, такой как пароли, OAuth-токены и SSH-ключи.
+  name              = "kms-key"
+  default_algorithm = "AES_128"
+  rotation_period   = "8760h" # 1 год.
 }
