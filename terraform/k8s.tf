@@ -3,6 +3,7 @@ resource "yandex_kubernetes_cluster" "netology-k8s" {
   name = "k8s-ha-one-zone"
   network_id = yandex_vpc_network.dev-net.id
   master {
+    public_ip = true
     master_location {
       zone      = yandex_vpc_subnet.subnet-public-a.zone
       subnet_id = yandex_vpc_subnet.subnet-public-a.id
