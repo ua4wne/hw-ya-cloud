@@ -1,12 +1,11 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: phpmyadmin-deployment
+  name: phpmyadmin
   labels:
     app: phpmyadmin
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: phpmyadmin
@@ -22,10 +21,16 @@ spec:
             - containerPort: 80
           env:
             - name: PMA_HOST
-              value: "rc1a-3u06v0pniep7bp60.mdb.yandexcloud.net"
+              value: "mysql-service"  # имя сервиса MySQL
             - name: PMA_PORT
               value: "3306"
-            - name: MYSQL_USER
-              value: "db_user"
-            - name: MYSQL_ROOT_PASSWORD
-              value: "p@$$w0rD"
+            - name: PMA_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-credentials
+                  key: username
+            - name: PMA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-credentials
+                  key: password

@@ -16,7 +16,7 @@ resource "yandex_kubernetes_cluster" "netology-k8s" {
       zone      = yandex_vpc_subnet.subnet-public-d.zone
       subnet_id = yandex_vpc_subnet.subnet-public-d.id
     }
-    security_group_ids = [yandex_vpc_security_group.dev-sec-group.id]
+    # security_group_ids = [yandex_vpc_security_group.dev-sec-group.id]
   }
   service_account_id      = yandex_iam_service_account.sa-kube.id
   node_service_account_id = yandex_iam_service_account.sa-kube.id
@@ -24,7 +24,10 @@ resource "yandex_kubernetes_cluster" "netology-k8s" {
     yandex_resourcemanager_folder_iam_member.k8s-clusters-agent,
     yandex_resourcemanager_folder_iam_member.vpc-public-admin,
     yandex_resourcemanager_folder_iam_member.images-puller,
-    yandex_resourcemanager_folder_iam_member.encrypterDecrypter
+    yandex_resourcemanager_folder_iam_member.encrypterDecrypter,
+    yandex_vpc_subnet.subnet-public-a,
+    yandex_vpc_subnet.subnet-public-b,
+    yandex_vpc_subnet.subnet-public-d
   ]
   kms_provider {
     key_id = yandex_kms_symmetric_key.kms-key.id
