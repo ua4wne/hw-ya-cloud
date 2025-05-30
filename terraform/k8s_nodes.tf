@@ -7,7 +7,6 @@ resource "yandex_kubernetes_node_group" "k8s-group-node" {
     platform_id = var.vm_platform
     name        = "worker-a-{instance.short_id}"
     network_interface {
-      # nat                = var.vm_nat
       subnet_ids = [yandex_vpc_subnet.subnet-public-a.id]
       # security_group_ids = [yandex_vpc_security_group.dev-sec-group.id]
     }
